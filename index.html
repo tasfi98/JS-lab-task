@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet"/>
+
+
+
+
+	<title>JS Example</title>
+	
+
+</head>	
+<body>
+	<h1>JS example</h1>
+	Name: <br>
+	<form>
+		<input type="text" id="name" name="name" value=""><br>
+		<p id="empty">Can not be emty!</p>
+		<p id="twoWords">Contains at least two words</p>
+		<p id="contain">Can contain a-z or A-Z or dot(.) or dash(-)</p>
+		<p id="must"> Must start with a letter</p>
+		Email: <br>
+		<input type="text" id="mail" name="mail">
+		<span data-toggle="tooltip" title="example@example.com">i</span><br>
+		<p id="validMail"></p>
+		Gender: <br>
+		<input type="radio" id="male" name="gender" value="male">Male
+
+		<input type="radio" id="female" name="gender" value="female">Female
+
+		<input type="radio" id="other" name="gender" value="other">Other
+		<p id="gen"></p>
+		
+		<input type="button" name="" value="Click" onclick="validate(this.form)">
+	</form>
+	
+
+
+	<script type="text/javascript">
+		$('span[data-toggle="tooltip"]').tooltip({
+		    animated: 'fade',
+		    placement: 'bottom',
+		});
+		
+
+		function changeData(){
+			let element = document.getElementsByTagName('h1')[0];
+			element.innerHTML = "MY NAME";	
+		}
+
+		function mydata(){
+			let element = document.getElementById('name');
+			document.getElementsByTagName('h1')[0].innerHTML = element.value;
+			element.value = "";
+
+		}
+
+		
+		
+		function validate(form){
+			let name = document.getElementById('name').value;
+			const myArray = name.split(" ");
+
+			if(myArray[1]==null){
+				document.getElementById('twoWords').innerHTML= "Invalid";
+				console.log(myArray);
+			}
+			else{
+				document.getElementById('twoWords').style.color = "green";
+			}
+			
+			var format = /[.-]+/;
+			if(format.test(name)){
+				  document.getElementById('contain').style.color = "green";
+				} else {
+				 document.getElementById('contain').innerHTML= "Invalid";
+				}
+
+			var regExp = /^[a-zA-Z]/g;
+
+			            
+			if(regExp.test(name)){
+			  document.getElementById('must').style.color = "green";
+			} else {
+			  document.getElementById('must').innerHTML= "Invalid";
+			}
+
+
+			if(name == ""){
+
+			}else{
+				document.getElementsByTagName('h1')[0].innerHTML = name;
+				document.getElementById('empty').style.color = "green";
+			}
+
+
+
+			let email = document.getElementById('mail').value;
+			console.log(email);
+			let dotPos = email.indexOf(".");
+			let atPos = email.indexOf("@");
+			if(atPos>dotPos || email.indexOf("@")==0){
+				 console.log("Invalid Email");
+			}
+			else{
+				document.getElementById('validMail').innerHTML= "Valid mail";
+				console.log("Valid Email");
+			}
+
+
+			var genderM=form.male;
+		    var genderF=form.female;
+		    var genderO=form.other;
+
+		    if(genderM.checked==false && genderF.checked==false && genderO.checked==false) {
+		        document.getElementById('gen').innerHTML= "Choose One";
+		    }
+		    else{
+		    	document.getElementById('gen').innerHTML= "checked";
+		    }   
+		}
+	</script>
+</body>
+</html>
